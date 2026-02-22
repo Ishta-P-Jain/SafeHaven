@@ -111,6 +111,7 @@ cd public
    │
    └── .gitattributes
 ```
+---
 ## 🏗️ Workflow Architecture
 
 The following diagram represents the navigation workflow of the SafeHaven platform.  
