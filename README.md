@@ -111,7 +111,60 @@ cd public
    │
    └── .gitattributes
 ```
+## 🏗️ Workflow Architecture
 
+The following diagram represents the navigation workflow of the SafeHaven platform.  
+It shows how users move from the Home Page to different modules and services.
+
+```mermaid
+graph TD
+
+A[index.html<br>Landing Page]
+
+A --> B[Home Page / Map]
+
+B --> C1[Alerts & Risks]
+B --> C2[Disaster Coordination]
+B --> C3[Evacuation Safety]
+B --> C4[Community]
+B --> C5[Disaster Updates]
+B --> C6[Get Educated]
+B --> C7[AI Assistant]
+B --> C8[Get Involved]
+
+
+%% Disaster Coordination
+C2 --> D1[SOS]
+C2 --> D2[Rescue]
+C2 --> D3[Coordination Hub]
+
+
+%% Community
+C4 --> E1[Live Updates]
+C4 --> E2[Missing Persons]
+C4 --> E3[Chatroom]
+
+
+%% AI Assistant
+C7 --> F1[AI Chatbot]
+C7 --> F2[Medical Help]
+C7 --> F3[Voice Control]
+
+
+%% Get Educated
+C6 --> G1[Earthquake]
+C6 --> G2[Flood]
+C6 --> G3[Wildfire]
+C6 --> G4[Hurricane]
+C6 --> G5[Volcano]
+C6 --> G6[Terrorism]
+C6 --> G7[Disaster Checklist]
+
+
+%% Get Involved
+C8 --> H1[Volunteer]
+C8 --> H2[Donations]
+```
 ---
 
 ## 🤝 Contributing
