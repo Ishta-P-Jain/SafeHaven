@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Disaster Preparedness Checklist</title>
+
+<style>
+
+body{
+font-family: Arial;
+margin:0;
+background:#f4f7fb;
+}
+
+header{
+background:#1e3a8a;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+width:80%;
+margin:auto;
+margin-top:20px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+color:#1e3a8a;
+}
+
+select{
+padding:10px;
+width:200px;
+margin-bottom:20px;
+}
+
+.item{
+
+padding:10px;
+border-bottom:1px solid #ddd;
+font-size:18px;
+}
+
+button{
+
+margin-top:20px;
+padding:10px 20px;
+background:#1e3a8a;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+
+}
+
+button:hover{
+background:#163075;
+}
+
+.progress{
+
+margin-top:15px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Disaster Preparedness Checklist</h1>
+
+</header>
+
+<div class="container">
+
+<h2>Select Disaster Type</h2>
+
+<select id="disasterType" onchange="loadChecklist()">
+
+<option value="flood">Flood</option>
+
+<option value="earthquake">Earthquake</option>
+
+<option value="wildfire">Wildfire</option>
+
+</select>
+
+
+<div id="checklist">
+
+</div>
+
+
+<div class="progress" id="progress">
+
+</div>
+
+
+<button onclick="printChecklist()">
+
+Print Checklist
+
+</button>
+
+
+</div>
+
+
+<script>
+
+const data = {
+
+flood:[
+
+"Drinking Water",
+
+"Non-perishable Food",
+
+"First Aid Kit",
+
+"Flashlight",
+
+"Extra Batteries",
+
+"Important Documents",
+
+"Emergency Contacts",
+
+"Waterproof Bags"
+
+],
+
+earthquake:[
+
+"Emergency Food",
+
+"Water Bottles",
+
+"Medicines",
+
+"Whistle",
+
+"Helmet",
+
+"First Aid Kit",
+
+"Documents",
+
+"Phone Charger"
+
+],
+
+wildfire:[
+
+"Masks",
+
+"Goggles",
+
+"Water",
+
+"Emergency Bag",
+
+"Fire Blanket",
+
+"Medicines",
+
+"Documents",
+
+"Flashlight"
+
+]
+
+};
+
+
+function loadChecklist(){
+
+let type = document.getElementById("disasterType").value;
+
+let list = document.getElementById("checklist");
+
+list.innerHTML="";
+
+let saved = JSON.parse(localStorage.getItem(type)) || [];
+
+
+data[type].forEach((item,index)=>{
+
+let checked = saved[index] ? "checked" : "";
+
+list.innerHTML += `
+
+<div class="item">
+
+<input type="checkbox"
+
+onchange="saveItem(${index})"
+
+id="item${index}"
+
+${checked}
+
+>
+
+${item}
+
+</div>
+
+`;
+
+});
+
+
+updateProgress();
+
+}
+
+
+
+function saveItem(index){
+
+let type = document.getElementById("disasterType").value;
+
+let saved = JSON.parse(localStorage.getItem(type)) || [];
+
+saved[index] = document.getElementById("item"+index).checked;
+
+localStorage.setItem(type,JSON.stringify(saved));
+
+updateProgress();
+
+}
+
+
+
+function updateProgress(){
+
+let type = document.getElementById("disasterType").value;
+
+let saved = JSON.parse(localStorage.getItem(type)) || [];
+
+let total = data[type].length;
+
+let done = saved.filter(x=>x).length;
+
+document.getElementById("progress").innerHTML =
+
+"Progress: "+done+" / "+total+" Completed";
+
+}
+
+
+
+function printChecklist(){
+
+window.print();
+
+}
+
+
+loadChecklist();
+
+</script>
+
+</body>
+
+</html>
